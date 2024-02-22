@@ -23,48 +23,36 @@
     color: white;
   }
 </style>
+<body style='margin : 0px; overflow: hidden;'>
+    <div class="arjs-loader">
+        <div>Loading, please wait...</div>
+    </div>
+    <a-scene
+        vr-mode-ui="enabled: false;"
+        renderer='antialias: true; alpha: true; precision: medium;'
+        embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
 
-<body style="margin: 0px; overflow: hidden">
-  <!-- minimal loader shown until image descriptors are loaded -->
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
-  </div>
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-  >
-    <video
-      src="asset.mp4"
-      preload="auto"
-      id="vid"
-      response-type="arraybuffer"
-      loop
-      crossorigin
-      webkit-playsinline
-      autoplay
-      muted
-      playsinline
-    ></video>
-    <a-nft
-      type="nft"
-      url="qr"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
-      videohandler
-    >
-    <a-video
-    position="0 0 -1"
-    rotation="-90 0 0"
-    width="2"
-    height="1.125"
-    src="asset.mp4"
-  ></a-video>
-  
-    </a-nft>
-    <a-entity camera></a-entity>
-  </a-scene>
+        <a-assets>
+            <video src="asset.mp4"
+                preload="auto" id="vid" response-type="arraybuffer" loop
+                crossorigin webkit-playsinline autoplay muted playsinline>
+            </video>
+        </a-assets>
+
+        <a-nft
+            videohandler
+            type='nft' url='qr.png'
+            smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5"
+        >
+            <a-video
+                src="#vid"
+                position='50 150 -100'
+                rotation='90 0 180'
+                width='300'
+                height='175'
+                >
+            </a-video>
+        </a-nft>
+		<a-entity camera></a-entity>
+	</a-scene>
 </body>
