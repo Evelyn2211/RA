@@ -10,34 +10,17 @@
             marker.addEventListener('markerFound', function () {
                 this.toggle = true;
                 this.vid.play();
+                setTimeout(this.redirect.bind(this), 24000); // Redirigir después de 24 segundos (24000 milisegundos)
             }.bind(this));
 
             marker.addEventListener('markerLost', function () {
                 this.toggle = false;
                 this.vid.pause();
             }.bind(this));
-
-            // Evento para detectar el final del video
-            this.vid.addEventListener('ended', function () {
-                // Mostrar mensaje en la pantalla
-                var message = document.createElement("div");
-                message.textContent = "Video ended, redirecting...";
-                message.style.position = "fixed";
-                message.style.top = "50%";
-                message.style.left = "50%";
-                message.style.transform = "translate(-50%, -50%)";
-                message.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
-                message.style.color = "white";
-                message.style.padding = "20px";
-                message.style.zIndex = "9999";
-                document.body.appendChild(message);
-
-                // Redirigir a la URL deseada después de un breve retraso
-                setTimeout(function () {
-                    window.location.href = 'http://caveri.moreno.gob.ar';
-                }, 2000); // 2000 milisegundos (2 segundos)
-            });
         },
+        redirect: function () {
+            window.location.href = 'http://caveri.moreno.gob.ar';
+        }
     });
 </script>
 <!-- style for the loader -->
