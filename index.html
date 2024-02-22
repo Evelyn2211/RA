@@ -16,6 +16,12 @@
                 this.toggle = false;
                 this.vid.pause();
             }.bind(this));
+
+            // Evento para detectar el final del video
+            this.vid.addEventListener('ended', function () {
+                // Redirigir a la URL deseada
+                window.location.href = 'http://caveri.moreno.gob.ar';
+            });
         },
     });
 </script>
