@@ -20,9 +20,11 @@
             // Evento para detectar el final del video
             this.vid.addEventListener('ended', function () {
                 console.log('Video ended');
-                // Redirigir a la URL deseada
-                window.location.href = 'http://caveri.moreno.gob.ar';
-            });
+                if (this.toggle) {
+                    console.log('Redirecting...');
+                    window.location.href = 'http://caveri.moreno.gob.ar';
+                }
+            }.bind(this));
         },
     });
 </script>
