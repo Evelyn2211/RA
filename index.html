@@ -1,26 +1,6 @@
 <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
 <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
-<script>
-    window.onload = function() {
-        AFRAME.registerComponent('videohandler', {
-            init: function () {
-                var marker = this.el;
-
-                this.vid = document.querySelector("#vid");
-
-                marker.addEventListener('markerFound', function () {
-                    this.vid.play();
-                }.bind(this));
-
-		marker.addEventListener('markerLost', function() {
-			this.vid.pause();
-			this.vid.currentTime = 0;
-		}.bind(this));
-            }
-        });
-    };
-</script>
 <style>
   .arjs-loader {
     height: 100%;
@@ -42,7 +22,7 @@
   }
 </style>
 
-<body style="margin : 0px; overflow: hidden;">
+<body style="margin: 0px; overflow: hidden;">
   <!-- minimal loader shown until image descriptors are loaded -->
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
@@ -53,7 +33,7 @@
     embedded
     arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
   >
-    <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+    <!-- NFT marker -->
     <a-nft
       type="nft"
       url="https://github.com/Evelyn2211/RA/qr"
@@ -62,15 +42,53 @@
       smoothTolerance=".01"
       smoothThreshold="5"
     >
-    <a-video
-    src="asset.mp4"
-    position='50 150 -100'
-    rotation='90 0 180'
-    width='300'
-    height='175'
-    >
-</a-video>
+      <!-- Video element -->
+      <video
+        id="video"
+        src="tu-video.mp4"
+        preload="auto"
+        loop
+        crossorigin="anonymous"
+        webkit-playsinline
+        playsinline
+        style="display: none;"
+      ></video>
+      <!-- JavaScript component to handle video playback -->
+      <a-entity video-handler></a-entity>
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
+
+  <script>
+    // JavaScript component to handle video playback
+    AFRAME.registerComponent("video-handler", {
+      init: function () {
+        var marker = this.el;
+        var video = document.getElementById("video");
+        var loader = document.querySelector(".arjs-loader");
+
+        marker.addEventListener("markerFound", function () {
+          // Show loader
+          loader.style.display = "flex";
+
+          // Play video
+          video.play();
+        });
+
+        marker.addEventListener("markerLost", function () {
+          // Pause video
+          video.pause();
+          video.currentTime = 0;
+
+          // Hide loader
+          loader.style.display = "none";
+        });
+
+        video.addEventListener("loadeddata", function () {
+          // Hide loader once video is loaded
+          loader.style.display = "none";
+        });
+      },
+    });
+  </script>
 </body>
