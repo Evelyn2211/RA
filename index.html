@@ -19,12 +19,24 @@
 
             // Evento para detectar el final del video
             this.vid.addEventListener('ended', function () {
-                console.log('Video ended');
-                if (this.toggle) {
-                    console.log('Redirecting...');
+                // Mostrar mensaje en la pantalla
+                var message = document.createElement("div");
+                message.textContent = "Video ended, redirecting...";
+                message.style.position = "fixed";
+                message.style.top = "50%";
+                message.style.left = "50%";
+                message.style.transform = "translate(-50%, -50%)";
+                message.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+                message.style.color = "white";
+                message.style.padding = "20px";
+                message.style.zIndex = "9999";
+                document.body.appendChild(message);
+
+                // Redirigir a la URL deseada después de un breve retraso
+                setTimeout(function () {
                     window.location.href = 'http://caveri.moreno.gob.ar';
-                }
-            }.bind(this));
+                }, 2000); // 2000 milisegundos (2 segundos)
+            });
         },
     });
 </script>
